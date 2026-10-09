@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<section class="panel narrow"><h1>Acesso administrativo</h1><p>Uso exclusivo da equipe MKC.</p><form method="post"><input type="hidden" name="csrf_token" value="{{csrf_token}}"><label>Senha administrativa<input name="password" type="password" required></label><button class="button">Entrar</button></form></section>{% endblock %}
