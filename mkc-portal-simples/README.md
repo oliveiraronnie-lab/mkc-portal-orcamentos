@@ -32,3 +32,8 @@ Portal Flask responsivo para solicitar orçamento de regularização e alvará d
 - Configure aviso de privacidade completo, política de retenção, contatos de titular e controles adicionais antes do uso comercial em produção (LGPD).
 - Use HTTPS (fornecido pelo Render) e senhas fortes; limite acesso administrativo conforme necessidade.
 - O e-mail é opcional: se SMTP não estiver configurado, os pedidos são armazenados mas nenhum aviso será enviado.
+
+## Atualização de campos
+Máscaras de CPF/CNPJ, telefone, área m² e letras maiúsculas. CPF/CNPJ validados no navegador e servidor. Contato: (65) 99695-2144.
+
+Envie os arquivos da pasta `mkc-portal-simples` para a raiz do repositório GitHub (ou defina Root Directory no Render como `mkc-portal-simples`). Não envie o ZIP diretamente para o repositório.

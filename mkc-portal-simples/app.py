@@ -31,6 +31,23 @@ def send_notification(data):
     except Exception:
         app.logger.exception('Falha ao enviar notificação SMTP'); return False
 
+def documento_valido(value, tipo):
+    v=re.sub(r'\D','',value)
+    if not v or len(set(v))==1: return False
+    if tipo=='Física':
+        if len(v)!=11: return False
+        for n in (9,10):
+            total=sum(int(v[i])*(n+1-i) for i in range(n))
+            check=(total*10)%11
+            if int(v[n])!=(0 if check==10 else check): return False
+        return True
+    if tipo!='Jurídica' or len(v)!=14: return False
+    for weights in ((5,4,3,2,9,8,7,6,5,4,3,2),(6,5,4,3,2,9,8,7,6,5,4,3,2)):
+        total=sum(int(v[i])*weight for i,weight in enumerate(weights))
+        check=0 if total%11<2 else 11-total%11
+        if int(v[len(weights)])!=check: return False
+    return True
+
 @app.after_request
 def headers(resp):
     resp.headers['X-Content-Type-Options']='nosniff'
@@ -53,6 +70,12 @@ def solicitar():
         flash('Preencha os campos obrigatórios e confirme a autorização de contato.','error'); return redirect(url_for('home'))
     if not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+',data['email']):
         flash('Informe um e-mail válido.','error'); return redirect(url_for('home'))
+    if not documento_valido(data['documento'],data['tipo_pessoa']):
+        flash('Informe um CPF ou CNPJ válido, conforme o tipo de pessoa.','error'); return redirect(url_for('home'))
+    if len(re.sub(r'\D','',data['telefone'])) not in (10,11):
+        flash('Informe um telefone válido com DDD.','error'); return redirect(url_for('home'))
+    for field in ('nome','responsavel','imovel','endereco','bairro','cidade','atividade','observacoes'):
+        data[field]=data[field].upper()
     try:
         area=float(data['area'].replace('.','').replace(',','.'))
         if area<=0 or area>100000000: raise ValueError()
