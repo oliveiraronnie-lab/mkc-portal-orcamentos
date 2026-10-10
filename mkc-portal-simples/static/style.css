@@ -2,3 +2,16 @@
 
 /* MKC: identidade centralizada e contato */
 .nav{position:relative;justify-content:center;gap:16px}.brand{text-align:center;line-height:1.15}.navright{position:absolute;right:22px;display:flex;align-items:center;gap:18px}.contact{color:var(--green);font-weight:700;text-decoration:none}footer a{color:var(--green)}input[data-uppercase],textarea[data-uppercase]{text-transform:uppercase}input:invalid:not(:placeholder-shown){border-color:#b66b6b}@media(max-width:800px){.nav{flex-direction:column;padding-top:16px;padding-bottom:14px}.navright{position:static;justify-content:center;flex-wrap:wrap;gap:14px}}
+
+/* Bandeiras alinhadas horizontalmente à identidade MKC */
+.brand-flags{display:flex;align-items:center;justify-content:center;gap:22px;min-width:0}
+.brand-flags .brand{white-space:nowrap}
+.flag{width:60px;height:42px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 1px 2px #0002)}
+@media(max-width:480px){.brand-flags{gap:9px}.flag{width:40px;height:28px}.brand-flags .brand{font-size:22px}.brand-flags .brand span{font-size:11px}}
+
+/* Bandeiras juntas no lado esquerdo; marca MKC centralizada */
+.nav{position:relative;justify-content:center;min-height:86px}
+.flags-left{position:absolute;left:22px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:10px}
+.flags-left .flag{width:60px;height:42px;object-fit:contain}
+@media(max-width:900px){.nav{flex-direction:column;gap:10px;padding-top:15px;padding-bottom:14px}.flags-left{position:static;transform:none;align-self:flex-start}.navright{position:static}}
+@media(max-width:480px){.flags-left .flag{width:46px;height:32px}.flags-left{gap:8px}}
